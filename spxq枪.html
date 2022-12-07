@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>期中设计</title>
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/header.css" type="text/css" rel="stylesheet">
+    <link href="css/spxq.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/chanping.js"></script>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div class="box">
+        <!--头部区域-->
+        <div class="topbox">
+            <div class="top">
+                <a href="index.html"><img src="images/wuqi/yjj.png" class="top-logo"></a>
+                <ul>
+                    <li><i class="fa fa-star" aria-hidden="true"></i><a href="">中文</a></li>
+                    <li><i class="fa fa-star" aria-hidden="true"></i><a href="#">English</a></li>
+                </ul>
+            </div>
+        </div>
+        <!--导航区域-->
+        <div class="navbox">
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li class="navhover"><a href="chanping.html">返回</a></li>
+                    <li><a href="jianjie.html">游戏简介</a></li>
+                    <li><a href="new.html">游戏新闻</a></li>
+                    <li><a href="lxwm.html">联系我们</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- 加 -->
+
+        <!-- 加 -->
+
+        <!--内容区域-->
+        <div id="app">
+
+            <div class="conbox">
+                <div class="c-top">
+                    <div class="c-top-l">
+                        <img src="images/wuqi/枪a.png">
+                        <!-- <img src="images/spxq/xiaotu.jpg" class="xiaotu">
+                        <img src="images/spxq/xiaotu.jpg" class="xiaotu">
+                        <img src="images/spxq/xiaotu.jpg" class="xiaotu"> -->
+                    </div>
+                    <div class="c-top-r">
+                        <h3>永结无间：枪周边<br><small>Eternal Knot: Longsword skin</small></h3>
+                        <p>商品名称 ：灵犀</p>
+                        <p>商品属性 ：近战武器</p>
+                        <p>商品材质 : 由玄铁，水晶制成，呈棍状，前端矛，后端安有把手</p>
+                        <p>商品源于 ：商</p>
+                        <h4>单格：￥{{skin.onePrice}}</h4>
+                        <ul class="xznf">
+                            选择版本：
+                            <li class="xznfhover" v-on:click="qi">旗舰版</li>
+                            <!-- <button class="xznfhover" v-on:click="qi">旗舰版</button> -->
+                            <li v-on:click="zhuan">专业版</li>
+                            <!-- <button v-on:click="zhuan">专业版</button> -->
+                            <li v-on:click="qing">青春版</li>
+                            <!-- <button v-on:click="qing">青春版</button> -->
+                        </ul>
+                        <div class="goumai">
+                            <input type="button" value="+" id="jia" v-on:click="addNum">
+                            <!-- <button v-on:click="addNum" id="jia">+</button> -->
+                            <input type="text" value=1 id="sltxt" v-model="skin.nums">
+                            <input type="button" value="-" id="jian" v-on:click="jianNum">
+                            <!-- <button v-on:click="jianNum" id="jian">-</button> -->
+                            <input type="button" value="加入购物车" v-on:click="gwc">
+                            <input type="button" value="立即购买" v-on:click="mai">
+                            <li><a v-if="this.skin.isMai===true" v-on:click="zf" src="images/ly/zftp.jpg" class="zf">扫码支付,支付完成点击此处</a></li>
+                            <img v-if="this.skin.isMai===true" src="images/ly/zftp.jpg">
+                        </div>
+                        <br>
+                        <p style="clear: both; color: red;font-size:14px; line-height: 40px;">温馨提醒：最终解释权归本店所有</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let gameSkin = {
+            skin: {
+                name: "永结无间红皮", //名称
+                onePrice: 1000, //单价
+                nums: 1, //数量
+                isMai: false, //是否买
+                isGWC: false //是否在购物车
+            },
+            allPrice: 0 //总价
+        }
+        let vm = new Vue({
+                el: "#app",
+                data: gameSkin,
+
+                watch: {
+                    skin: {
+                        handler(value) {
+                            this.allPrice = value.nums * value.onePrice
+                            console.log(this.allPrice)
+                        },
+                        deep: true,
+                        immediate: true,
+
+                    }
+                },
+                methods: {
+                    addNum() {
+                        this.skin.nums++;
+                    },
+                    jianNum() {
+                        this.skin.nums--;
+                    },
+                    qi() {
+                        this.skin.onePrice = 1000;
+                    },
+                    zhuan() {
+                        this.skin.onePrice = 598;
+                    },
+                    qing() {
+                        this.skin.onePrice = 98;
+                    },
+                    mai() {
+                        this.skin.isMai = true
+                        console.log(this.skin.isMai)
+                    },
+                    zf() {
+                        if (this.allPrice >= 1000) {
+                            alert("成功支付" + this.allPrice + "元。\n您已升为本店至尊VIP，欢迎下次光临！！！")
+                            this.skin.isMai = false;
+                        } else if (this.allPrice >= 598) {
+                            alert("成功支付" + this.allPrice + "元。\n您已升为本店普通VIP，再消费598即可升为至尊VIP！！")
+                            this.skin.isMai = false;
+                        } else {
+                            alert("成功支付" + this.allPrice + "元。\n再消费598即可升为普通VIP！")
+                            this.skin.isMai = false;
+                        }
+
+                    },
+                    gwc() {
+                        alert("成功加入购物车！！！")
+                    }
+                },
+            })
+            // vm.skin.nums = 1;
+            //vm.skin.nums = 2;
+    </script>
+</body>
+
+</html>

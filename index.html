@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>期中设计</title>
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/header.css" type="text/css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script src="vue.js"></script>
+    <style>
+        #jnkc {
+            position: absolute;
+            width: 400px;
+            top: 0;
+            bottom: 60%;
+            left: 43%;
+            right: 23%;
+            font-size: x-large;
+            border: 2px aqua;
+        }
+        
+        .hui {
+            position: absolute;
+            top: 75%;
+            left: 91%;
+            font-size: larger;
+            font-family: cursive;
+        }
+        
+        #img {
+            /* position: absolute; */
+            width: 70%;
+            left: 16%;
+            height: 83%;
+            border: 5px inset #44c767;
+        }
+        /* .bt1 {
+            position: absolute;
+            left: 92%;
+            top: 50%;
+            height: 65px;
+            width: 65px;
+            border-radius: 50px;
+            background-color: pink;
+        } */
+        
+        .bt1 {
+            position: absolute;
+            top: 400px;
+            text-align: center;
+            line-height: 52px;
+            font-size: 15px;
+            font-family: Arial;
+            width: 107px;
+            height: 50px;
+            border-width: 8px;
+            color: #fff;
+            border-color: #18ab29;
+            font-weight: bold;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            text-shadow: 1px 1px 0px #2f6627;
+            background: #44c767;
+        }
+        
+        .bt1:hover {
+            background: #5cbf2a
+        }
+        
+        .bt2 {
+            position: absolute;
+            top: 400px;
+            left: 110px;
+            text-align: center;
+            line-height: 52px;
+            font-size: 15px;
+            font-family: Arial;
+            width: 107px;
+            height: 50px;
+            border-width: 8px;
+            color: #fff;
+            border-color: #18ab29;
+            font-weight: bold;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            text-shadow: 1px 1px 0px #2f6627;
+            background: #44c767;
+        }
+        
+        .bt2:hover {
+            background: #5cbf2a
+        }
+        
+        .tab1 {
+            position: absolute;
+            top: 23%;
+            font-size: large;
+            font-family: cursive;
+            border: 4px ridge pink;
+        }
+        
+        body {
+            background-size: 100%;
+        }
+        
+        body,
+        html {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+
+<body background="images/ly/q.jpg">
+    <div class="box">
+        <!--头部区域-->
+        <div class="topbox">
+            <div class="top">
+                <a href="index.html"><img src="images/wuqi/yjj.png" class="top-logo"></a>
+                <ul>
+                </ul>
+            </div>
+        </div>
+
+        <!--导航区域-->
+        <div class="navbox">
+
+            <nav class="nav">
+                <ul>
+                    <li class="navhover"><a href="index.html">首页</a></li>
+                    <li><a href="chanping.html">周边购买</a></li>
+                    <li><a href="jianjie.html">永结简介</a></li>
+                    <li><a href="new.html">新闻消息</a></li>
+                    <li><a href="lxwm.html">联系我们</a></li>
+                </ul>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- 加 -->
+        <!-- <h3 class="lg-title">永结无间</h3> -->
+
+        <div class="logobox" style="height: 660px;width: 1450px;margin-left:5px;margin-top: 10px;margin-bottom:0; text-align: center;">
+            <img id="img" v-bind:src=this.picture width="100%">
+
+            <!-- <button class="bt1" v-on:click="on">点击开始图片轮播</button>
+            <button class="bt2" v-on:click="off">点击停止图片轮播</button> -->
+            <a href="#" class="bt1" v-on:click="on">下一张</a>
+            <a href="#" class="bt2" v-on:click="off">上一张</a>
+        </div>
+
+        <!-- <button class="bt1" v-on:click="on">点击开始图片轮播</button>
+        <button class="bt2" v-on:click="off">点击停止图片轮播</button> -->
+
+        <!-- <table class="tab1">
+            <tr>
+                <td>
+                    <p>图片设置一秒切换一次</p>
+                    <p>点击下面按钮开始切换</p>
+                    <p>注意：</p>
+                    <p>开始按钮不能连续点击两次</p>
+                    <p>暂停后可以重新点击轮播</p>
+                </td>
+            </tr>
+        </table> -->
+        <script>
+            let vm = new Vue({
+                el: ".logobox",
+                data: {
+                    number: 1,
+                    picture: "images/ly/tp1.jpg"
+                },
+                methods: {
+                    on() {
+                        if (this.number <= 8) {
+                            this.number++
+                        } else {
+                            this.number = 1
+                        }
+                        this.picture = "images/ly/tp" + this.number + ".jpg"
+                            // setInterval(function() {
+                            //     this.number++;
+                            //     if (this.number > 9) {
+                            //         number = 1
+                            //     }
+                            //     this.picture = "images/ly/tp" + number + ".jpg";
+                            // }, 1000)
+                    },
+                    off() {
+                        if (this.number > 1) {
+                            this.number--
+                        } else {
+                            this.number = 9
+                        }
+                        this.picture = "images/ly/tp" + this.number + ".jpg"
+                    }
+                },
+                // watch: {
+                //     picture: {
+                //         handler(value) {
+                //             this.allPrice = value.nums * value.onePrice
+                //             console.log(this.allPrice)
+                //         },
+                //         deep: true,
+                //         immediate: true,
+                //     }
+                // }
+            })
+
+
+
+            // var bt1 = document.querySelector('.bt1')
+            // var bt2 = document.querySelector('.bt2')
+
+            // var number = 0;
+            // var s
+
+            // function fun() {
+            //     number++;
+            //     if (number > 9) {
+            //         number = 1;
+            //     }
+            //     var img = document.getElementById("img");
+            //     img.src = "images/ly/tp" + number + ".jpg";
+            // }
+            // bt1.onclick = function() {
+            //     s = setInterval(fun, 1000)
+            // }
+            // bt2.onclick = function() {
+            //         clearInterval(s)
+            //     }
+        </script>
+
+        <!--页脚区域-->
+        <div class="footbox">
+            <div class="foot">
+                <div class="huiding">
+                    <a href="#">
+                        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <ul>
+                    <li><a href="lxwm.html">联系我们</a></li>
+                    <li><a href="jianjie.html">永结简介</a></li>
+                    <li><a href="new.html">新闻消息</a></li>
+                    </select>
+                </ul>
+
+                <p class="f-sj">我身无拘<br/><span>武道无极</span></p>
+                <img src="images/foot-logo.jpg" style="position:absolute;bottom:10px;right:30px; ">
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
